@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究生管理系统 - 原型导航</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .header h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .header p {
+            font-size: 16px;
+            color: #999;
+        }
+
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .page-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .page-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        .page-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+        .page-card h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .page-card p {
+            font-size: 13px;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        .bg-blue { background: linear-gradient(135deg, #1890ff, #69c0ff); }
+        .bg-green { background: linear-gradient(135deg, #52c41a, #95de64); }
+        .bg-purple { background: linear-gradient(135deg, #722ed1, #b37feb); }
+        .bg-orange { background: linear-gradient(135deg, #fa8c16, #ffc53d); }
+        .bg-red { background: linear-gradient(135deg, #f5222d, #ff7875); }
+        .bg-cyan { background: linear-gradient(135deg, #13c2c2, #5cdbd3); }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #999;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 研究生管理系统 原型导航</h1>
+            <p>点击下方卡片查看各页面原型设计</p>
+        </div>
+
+        <div class="page-grid">
+            <a href="login.html" class="page-card">
+                <div class="page-icon bg-blue">🔐</div>
+                <h3>登录页</h3>
+                <p>角色选择入口（学生/教师/秘书）</p>
+            </a>
+            <a href="student_home.html" class="page-card">
+                <div class="page-icon bg-green">🏠</div>
+                <h3>学生首页</h3>
+                <p>个人信息、通知公告、快捷入口、成绩分布</p>
+            </a>
+            <a href="training_plan.html" class="page-card">
+                <div class="page-icon bg-purple">📋</div>
+                <h3>培养计划</h3>
+                <p>个人培养计划制定、课程选择、学分统计</p>
+            </a>
+            <a href="grade_mgmt.html" class="page-card">
+                <div class="page-icon bg-orange">📊</div>
+                <h3>成绩管理</h3>
+                <p>教师端成绩录入、学生成绩查询、统计分析</p>
+            </a>
+            <a href="selection.html" class="page-card">
+                <div class="page-icon bg-cyan">👨‍🏫</div>
+                <h3>师生双选</h3>
+                <p>导师信息查看、双向选择申请、审核流程</p>
+            </a>
+            <a href="thesis.html" class="page-card">
+                <div class="page-icon bg-red">📝</div>
+                <h3>论文选题</h3>
+                <p>学位论文选题申请、内容填写、导师审核</p>
+            </a>
+        </div>
+
+        <div class="footer">
+            研究生管理系统原型设计 · 基于需求文档自动生成 · 2024
+        </div>
+    </div>
+</body>
+</html>

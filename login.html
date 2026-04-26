@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究生管理系统 - 登录</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+        /* 顶部导航栏 */
+        .navbar {
+            width: 100%;
+            height: 60px;
+            background: #1890ff;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .logo {
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border-radius: 6px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1890ff;
+        }
+        .navbar-title {
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        /* 登录容器 */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 60px;
+        }
+        /* 登录卡片 */
+        .login-card {
+            width: 420px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            padding: 40px 36px;
+        }
+        .login-title {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .login-subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 30px;
+        }
+        /* 表单项 */
+        .form-item {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .form-input {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .form-input:focus {
+            border-color: #1890ff;
+            box-shadow: 0 0 0 2px rgba(24,144,255,0.2);
+        }
+        .form-select {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+            background: #fff;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+        }
+        .remember-me input {
+            margin-right: 6px;
+        }
+        .forgot-link {
+            font-size: 13px;
+            color: #1890ff;
+            text-decoration: none;
+        }
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+        /* 登录按钮 */
+        .login-btn {
+            width: 100%;
+            height: 44px;
+            background: #1890ff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .login-btn:hover {
+            background: #40a9ff;
+        }
+        /* 底部版权 */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="navbar">
+        <div class="logo">研</div>
+        <span class="navbar-title">研究生管理系统</span>
+    </div>
+
+    <!-- 登录区域 -->
+    <div class="login-container">
+        <div class="login-card">
+            <h1 class="login-title">欢迎登录</h1>
+            <p class="login-subtitle">研究生管理系统 Graduate Management System</p>
+
+            <!-- 身份选择 -->
+            <div class="form-item">
+                <label class="form-label">身份选择</label>
+                <select class="form-select">
+                    <option value="">请选择身份</option>
+                    <option value="student">学生</option>
+                    <option value="teacher">教师</option>
+                    <option value="secretary">教务秘书</option>
+                </select>
+            </div>
+
+            <!-- 学号/工号 -->
+            <div class="form-item">
+                <label class="form-label">学号 / 工号</label>
+                <input type="text" class="form-input" placeholder="请输入学号或工号">
+            </div>
+
+            <!-- 密码 -->
+            <div class="form-item">
+                <label class="form-label">密码</label>
+                <input type="password" class="form-input" placeholder="请输入密码">
+            </div>
+
+            <!-- 记住密码 / 忘记密码 -->
+            <div class="form-row">
+                <label class="remember-me">
+                    <input type="checkbox"> 记住密码
+                </label>
+                <a href="#" class="forgot-link">忘记密码？</a>
+            </div>
+
+            <!-- 登录按钮 -->
+            <button class="login-btn">登 录</button>
+        </div>
+    </div>
+
+    <!-- 底部版权 -->
+    <div class="footer">
+        &copy; 2024 研究生管理系统 All Rights Reserved
+    </div>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究生管理系统 - 师生双选</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+        .navbar {
+            width: 100%; height: 60px; background: #1890ff;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 30px; position: fixed; top: 0; left: 0; z-index: 1000;
+        }
+        .navbar-left { display: flex; align-items: center; }
+        .logo {
+            width: 32px; height: 32px; background: #fff; border-radius: 4px;
+            margin-right: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: bold; color: #1890ff;
+        }
+        .navbar-title { color: #fff; font-size: 16px; font-weight: bold; }
+        .navbar-right { display: flex; align-items: center; gap: 16px; }
+        .user-info { color: #fff; font-size: 13px; }
+        .logout-btn {
+            background: rgba(255,255,255,0.2); color: #fff; border: none;
+            padding: 6px 16px; border-radius: 4px; font-size: 13px; cursor: pointer;
+        }
+
+        .main-container { display: flex; padding-top: 60px; min-height: 100vh; }
+
+        .sidebar {
+            width: 200px; background: #fff; border-right: 1px solid #e8e8e8;
+            padding: 20px 0; position: fixed; top: 60px; left: 0; bottom: 0;
+        }
+        .sidebar-title { padding: 12px 24px; font-size: 14px; color: #999; font-weight: 500; }
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li {
+            padding: 12px 24px; color: #333; font-size: 14px; cursor: pointer;
+            border-left: 3px solid transparent; transition: all 0.3s;
+        }
+        .sidebar-menu li:hover { background: #f0f2f5; }
+        .sidebar-menu li.active { background: #e6f7ff; color: #1890ff; border-left-color: #1890ff; }
+
+        .content { flex: 1; margin-left: 200px; padding: 24px; }
+
+        .page-header { margin-bottom: 20px; }
+        .page-title { font-size: 20px; color: #333; font-weight: 600; }
+        .page-subtitle { font-size: 13px; color: #999; margin-top: 6px; }
+
+        /* 状态卡片 */
+        .status-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .status-title { font-size: 16px; margin-bottom: 8px; }
+        .status-desc { font-size: 14px; opacity: 0.9; }
+        .status-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        /* 标签页切换 */
+        .tab-bar {
+            display: flex;
+            gap: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        .tab-item {
+            padding: 12px 24px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-item:hover { color: #1890ff; }
+        .tab-item.active {
+            color: #1890ff;
+            border-bottom-color: #1890ff;
+            font-weight: 500;
+        }
+
+        /* 导师列表卡片 */
+        .mentor-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .mentor-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .mentor-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .mentor-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .mentor-avatar {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .mentor-info h3 { font-size: 16px; color: #333; margin-bottom: 6px; }
+        .mentor-meta { font-size: 13px; color: #999; }
+        .mentor-tags { display: flex; gap: 8px; margin-bottom: 12px; }
+        .tag {
+            background: #f0f2f5;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+        }
+        .mentor-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .mentor-actions { display: flex; gap: 12px; }
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-primary { background: #1890ff; color: #fff; }
+        .btn-primary:hover { background: #40a9ff; }
+        .btn-default { background: #fff; border: 1px solid #d9d9d9; color: #333; }
+        .btn-default:hover { border-color: #1890ff; color: #1890ff; }
+
+        /* 我的申请 */
+        .application-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .app-title { font-size: 15px; color: #333; font-weight: 500; }
+        .app-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .status-pending { background: #fff7e6; color: #fa8c16; }
+        .status-approved { background: #f6ffed; color: #52c41a; }
+        .status-rejected { background: #fff1f0; color: #f5222d; }
+
+        .app-body {
+            padding: 16px 0;
+        }
+        .app-row {
+            display: flex;
+            margin-bottom: 12px;
+        }
+        .app-label {
+            width: 100px;
+            font-size: 13px;
+            color: #999;
+        }
+        .app-value {
+            flex: 1;
+            font-size: 13px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <div class="logo">研</div>
+            <span class="navbar-title">研究生管理系统</span>
+        </div>
+        <div class="navbar-right">
+            <span class="user-info">张三（计算机科学与技术）</span>
+            <button class="logout-btn">退出登录</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-title">培养管理</div>
+            <ul class="sidebar-menu">
+                <li>📋 个人培养计划</li>
+                <li class="active">👨‍🏫 师生双选</li>
+                <li>📄 培养方案</li>
+                <li>📝 开题申请</li>
+                <li>📊 中期考核</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="page-header">
+                <h1 class="page-title">师生双选</h1>
+                <p class="page-subtitle">查看导师信息并发起双向选择申请</p>
+            </div>
+
+            <!-- 状态卡片 -->
+            <div class="status-card">
+                <div class="status-title">📌 当前状态：待申请</div>
+                <div class="status-desc">请在下方选择意向导师，并发送双选申请。导师同意后即可建立师生关系。</div>
+                <span class="status-badge">双选阶段进行中</span>
+            </div>
+
+            <!-- 标签页切换 -->
+            <div class="tab-bar">
+                <div class="tab-item active">导师列表</div>
+                <div class="tab-item">我的申请</div>
+            </div>
+
+            <!-- 导师列表 -->
+            <div class="mentor-list">
+                <div class="mentor-card">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar">李</div>
+                        <div class="mentor-info">
+                            <h3>李明 教授</h3>
+                            <div class="mentor-meta">计算机科学与技术 · 博士生导师</div>
+                        </div>
+                    </div>
+                    <div class="mentor-tags">
+                        <span class="tag">人工智能</span>
+                        <span class="tag">机器学习</span>
+                        <span class="tag">深度学习</span>
+                    </div>
+                    <div class="mentor-desc">
+                        主要研究方向为人工智能、机器学习、深度学习，主持多项国家自然科学基金项目，发表SCI论文50余篇。
+                    </div>
+                    <div class="mentor-actions">
+                        <button class="btn btn-primary">申请双选</button>
+                        <button class="btn btn-default">查看详情</button>
+                    </div>
+                </div>
+
+                <div class="mentor-card">
+                    <div class="mentor-header">
+                        <div class="mentor-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">王</div>
+                        <div class="mentor-info">
+                            <h3>王华 副教授</h3>
+                            <div class="mentor-meta">软件工程 · 硕士生导师</div>
+                        </div>
+                    </div>
+                    <div class="mentor-tags">
+                        <span class="tag">软件工程</span>
+                        <span class="tag">系统架构</span>
+                    </div>
+                    <div class="mentor-desc">
+                        主要研究方向为企业级软件开发、大规模分布式系统，与企业合作项目丰富，实践经验丰富。
+                    </div>
+                    <div class="mentor-actions">
+                        <button class="btn btn-primary">申请双选</button>
+                        <button class="btn btn-default">查看详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
